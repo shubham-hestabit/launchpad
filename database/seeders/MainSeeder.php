@@ -27,5 +27,31 @@ class MainSeeder extends Seeder
             'previous_school'=>Str::random(10),
             'password'=>$faker->password
         ]);
+
+        DB::table('students')->insert([
+            // 's_id'=>Str::random(10),
+            'main_id'=>'2',
+            'parent_details'=>Str::random(10)
+        ]);
+
+        DB::table('teachers')->insert([
+            'main_id'=>'3',
+            'experience'=>'4',
+            'expertise_subjects'=>Str::random(10)
+        ]);
+
+        DB::table('admin')->insert([
+            'a_name'=>$faker->name,
+            'a_email'=>$faker->email,
+            'a_password'=>$faker->password,
+            'main_id'=>'2',
+            'approval_status'=>'1'
+        ]);
+
+        DB::table('assign')->insert([
+            'a_id'=>'2',
+            'stud_id'=>'5',
+            'assigned_teacher_id'=>'3'
+        ]);
     }
 }

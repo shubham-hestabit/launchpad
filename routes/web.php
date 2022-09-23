@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/demo', function () {
-    echo "hello";
+    echo " World";
 });
+
+Route::get('user', [MainController::class, 'show']);
