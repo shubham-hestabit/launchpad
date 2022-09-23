@@ -15,13 +15,12 @@ class CreateMainTable extends Migration
     {
         Schema::create('main', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('email', 100);
+            $table->string('name', 100);
+            $table->string('email', 150);
             $table->text('address');
             $table->string('profile_picture');
-            $table->text('current_school');
-            $table->text('previous_school');
-            $table->integer('approval_status');
+            $table->string('current_school');
+            $table->string('previous_school');
             $table->string('password', 50);
             $table->timestamps();
         });
