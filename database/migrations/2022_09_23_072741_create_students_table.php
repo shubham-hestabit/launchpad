@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->id('s_id');
             $table->unsignedBigInteger('main_id');
             $table->foreign('main_id')->references('id')->on('main');
-            $table->integer('parent_details');
+            $table->string('parent_details', 100);
             $table->timestamps();
         });
     }
