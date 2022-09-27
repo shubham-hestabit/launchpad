@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,14 @@ Route::get('/demo', function () {
     echo " World";
 });
 
-Route::get('user', [MainController::class, 'show']);
+Route::view('user-form', 'users');
+Route::post('submit-user-form', [MainController::class, 'submitUserData']);
+
+Route::view('student-form', 'students');
+Route::post('submit-student-form', [StudentController::class, 'submitStudentData']);
+
+Route::view('teacher-form', 'teachers');
+Route::post('submit-teachers-form', [MainController::class, 'submitTeacherData']);
+
+Route::view('admin-form', 'admin');
+Route::post('submit-admin-form', [MainController::class, 'submitAdminData']);

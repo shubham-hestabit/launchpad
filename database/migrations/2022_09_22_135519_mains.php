@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMainTable extends Migration
+class Mains extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateMainTable extends Migration
      */
     public function up()
     {
-        Schema::create('main', function (Blueprint $table) {
+        Schema::create('mains', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
             $table->string('email', 150);
             $table->text('address');
+            $table->string('title');
             $table->string('profile_picture');
             $table->string('current_school');
             $table->string('previous_school');
@@ -33,6 +34,6 @@ class CreateMainTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('main');
+        Schema::dropIfExists('mains');
     }
 }

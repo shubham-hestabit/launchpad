@@ -19,7 +19,7 @@ class CreateAdminTable extends Migration
             $table->string('a_email', 150);
             $table->string('a_password', 50);
             $table->unsignedBigInteger('main_id');
-            $table->foreign('main_id')->references('id')->on('main');
+            $table->foreign('main_id')->references('id')->on('mains');
             $table->integer('approval_status');
             $table->timestamps();
         });
