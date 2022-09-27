@@ -10,10 +10,11 @@ class TeacherController extends Controller
     public function submitTeacherData(Request $request)
     {
         $teach = new Teacher;
+        date_default_timezone_set('Asia/Kolkata');
+        
         $teach->main_id = $request['main_id'];
         $teach->experience = $request['experience'];
         $teach->expertise_subjects = $request['expertise_subjects'];
-        date_default_timezone_set('Asia/Kolkata');
         $teach->save();
 
         return view('welcome');
