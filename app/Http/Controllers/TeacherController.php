@@ -17,6 +17,9 @@ class TeacherController extends Controller
         $teach->expertise_subjects = $request['expertise_subjects'];
         $teach->save();
 
-        return view('welcome');
+        session()->put('t_id', $teach->id);
+
+        // return view('welcome');
     }
 }
+

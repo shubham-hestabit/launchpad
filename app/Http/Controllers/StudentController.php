@@ -12,11 +12,13 @@ class StudentController extends Controller
     {
         $stud = new Student;
         date_default_timezone_set('Asia/Kolkata');
-        
+
         $stud->main_id = $request['main_id'];
         $stud->parent_details = $request['parents_details'];
         $stud->save();
 
+        session()->put('s_id', $stud->id);
+        echo session()->get('s_id');
         return view('welcome');
     }
 }

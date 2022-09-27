@@ -5,6 +5,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AssignController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,6 @@ Route::view('teacher-form', 'teachers');
 Route::post('submit-teacher-form', [TeacherController::class, 'submitTeacherData']);
 
 Route::view('admin-form', 'admin');
-Route::post('submit-admin-form', [MainController::class, 'submitAdminData']);
+Route::post('submit-admin-form', [AdminController::class, 'submitAdminData']);
+
+Route::get('submit-assign-form', [AssignController::class, 'assignData']);

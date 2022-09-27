@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Student Details</title>
     <style>
     * {
         font-size: 20px;
@@ -15,17 +15,17 @@
 </head>
 
 <body>
-    <form action="{{url('/')}}/submit-admin-form" method="post">
+    <form action="{{url('/')}}/submit-student-form" method="post">
         @csrf
-        <h5>Admin Login</h5>
+        <h1>Student details form</h1>
 
-        <label for="name">Name: </label>
-        <input type="text" name="name"><br>
+        <label for="">Email: </label>
+        <input type="text" name="main_id" value="{{session()->get('s_user_id')}}"><br>
 
-        <label for="email">Email: </label>
-        <input type="email" name="email"><br>
+        <label for="">Password: </label>
+        <input type="password" name="password"><br>
 
-        <label for="password">Password: </label>
+        <label for="">Confirm Password: </label>
         <input type="password" name="password"><br>
 
         <button type="submit" name="submit">submit</button>
