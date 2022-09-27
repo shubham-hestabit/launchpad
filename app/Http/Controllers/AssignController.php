@@ -17,10 +17,5 @@ class AssignController extends Controller
         $assign->assigned_teacher_id = session()->get('t_id');
         $assign->save();
 
-        echo $assign->a_id;
-        echo "<br>";
-        echo $assign->stud_id;
-        echo "<br>";
-        echo $assign->assigned_teacher_id;
     }
 }

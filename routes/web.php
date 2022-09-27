@@ -39,3 +39,9 @@ Route::view('admin-form', 'admin');
 Route::post('submit-admin-form', [AdminController::class, 'submitAdminData']);
 
 Route::get('submit-assign-form', [AssignController::class, 'assignData']);
+
+Route::view('login-form', 'user_login');
+Route::post('user-login-form', [MainController::class, 'loginUser']);
+
+Route::view('user-data', 'userData');
+Route::post('user-details', [MainController::class, 'loginUser']);

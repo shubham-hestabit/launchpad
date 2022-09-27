@@ -21,6 +21,11 @@
 
         <label for="">Name: </label>
         <input type="text" name="name"><br>
+        <span>
+            @error('name')
+                {{$message}}
+            @enderror
+        </span>
 
         <label for="">Email: </label>
         <input type="email" name="email"><br>
