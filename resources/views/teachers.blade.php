@@ -17,16 +17,17 @@
 <body>
     <form action="{{url('/')}}/submit-teacher-form" method="post">
 
+        @csrf
         <h5>Teacher Details Form</h5>
 
         <label for="">main id: </label>
-        <input type="text" name="mainid"><br>
+        <input type="text" name="main_id" value="{{session()->get('t_user_id')}}"><br>
 
-        <label for="experience">Experience: </label>
+        <label for="">Experience: </label>
         <input type="number" name="experience"><br>
 
-        <label for="exp_subject">Expertise Subjects: </label>
-        <input type="text" name="exp_subject"><br>
+        <label for="">Expertise Subjects: </label>
+        <input type="text" name="expertise_subjects"><br>
 
         <button type="submit" name="submit">submit</button>
 

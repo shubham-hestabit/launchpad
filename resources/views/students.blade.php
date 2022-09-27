@@ -20,7 +20,7 @@
         <h1>Student details form</h1>
 
         <label for="">main id: </label>
-        <input type="text" name="main_id" value="{{session()->get('user_id')}}"><br>
+        <input type="text" name="main_id" value="{{session()->get('s_user_id')}}"><br>
 
         <label for="">Parents Details: </label>
         <input type="text" name="parents_details"><br>

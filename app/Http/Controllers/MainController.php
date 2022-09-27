@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Main;
 
@@ -32,13 +31,13 @@ class MainController extends Controller
         $user->previous_school = $request->previous_school;
         $user->password = $request->password;
         $user->save();
-
-        session()->put('user_id', $user->id);
-
+        
         if($user->title == 'student'){
+            session()->put('s_user_id', $user->id);
             return redirect('student-form');
         }
         else{
+            session()->put('t_user_id', $user->id);
             return redirect('teacher-form');
         }
     }

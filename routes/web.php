@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,7 @@ Route::view('student-form', 'students');
 Route::post('submit-student-form', [StudentController::class, 'submitStudentData']);
 
 Route::view('teacher-form', 'teachers');
-Route::post('submit-teachers-form', [MainController::class, 'submitTeacherData']);
+Route::post('submit-teacher-form', [TeacherController::class, 'submitTeacherData']);
 
 Route::view('admin-form', 'admin');
 Route::post('submit-admin-form', [MainController::class, 'submitAdminData']);
