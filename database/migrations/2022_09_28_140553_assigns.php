@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssignsTable extends Migration
+class Assigns extends Migration
 {
     /**
      * Run the migrations.
@@ -16,12 +16,12 @@ class CreateAssignsTable extends Migration
         Schema::create('assigns', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('a_id');
-            $table->unsignedBigInteger('stud_id');
+            $table->unsignedBigInteger('stud_id')->unique();
             $table->unsignedBigInteger('assigned_teacher_id');
-            $table->foreign('stud_id')->references('s_id')->on('students')->unique('s_id');
+            $table->foreign('stud_id')->references('s_id')->on('students');
             $table->foreign('assigned_teacher_id')->references('t_id')->on('teachers');
             $table->timestamps();
-            });
+        });
     }
 
     /**

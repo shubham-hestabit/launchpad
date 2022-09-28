@@ -23,7 +23,7 @@ class Main extends Model
 
     public function assignStudent(){
 
-        return $this->hasOneThrough('App\Models\Assign', 'App\Models\Student', 'id', 's_id');
+        return $this->hasOneThrough('App\Models\Assign', 'App\Models\Student', 's_id', 'id');
     }
 
     public function assignTeacher(){

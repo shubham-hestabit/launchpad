@@ -18,7 +18,7 @@ class MainController extends Controller
             'picture' => 'required|image',
             'current_school' => 'required',
             'previous_school' => 'required',
-            'password' => 'required|password',
+            'password' => 'required',
         ]);
 
         $user = new Main();

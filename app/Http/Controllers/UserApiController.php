@@ -20,6 +20,7 @@ class UserApiController extends Controller
         $user->current_school = $request->current_school;
         $user->previous_school = $request->previous_school;
         $user->password = $request->password;
+        $user->r_id = $request->r_id;
         $user->save();
         
         return response()->json($user);
@@ -27,8 +28,8 @@ class UserApiController extends Controller
     
     public function read($id)
     {
-        $user = Main::with('studentData', 'teacherData', 'assignStudent')->find($id);
-
+        $user = Main::with('studentData', 'teacherData')->find($id);
+        // $user = Main::find($id);
         return response()->json($user);
     }
 

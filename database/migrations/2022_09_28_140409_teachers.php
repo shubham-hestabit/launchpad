@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeachersTable extends Migration
+class Teachers extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,8 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id('t_id');
-            $table->unsignedBigInteger('main_id');
-            $table->foreign('main_id')->references('id')->on('mains')->unique('id');
+            $table->unsignedBigInteger('main_id')->unique();
+            $table->foreign('main_id')->references('id')->on('mains');
             $table->integer('experience');
             $table->string('expertise_subjects');
             $table->timestamps();

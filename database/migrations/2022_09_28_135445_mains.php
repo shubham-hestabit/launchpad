@@ -22,6 +22,8 @@ class Mains extends Migration
             $table->string('profile_picture')->nullable();
             $table->string('current_school');
             $table->string('previous_school');
+            $table->unsignedBigInteger('r_id')->unique();
+            $table->foreign('r_id')->references('r_id')->on('roles');
             $table->integer('approval_status')->default(0);
             $table->string('password', 50);
             $table->timestamps();
