@@ -17,7 +17,7 @@
 <body>
     <form action="{{url('/')}}/user-details" method="post">
         @csrf
-        <h3>{{$error ?? ''}}</h3>
+        <h3>Hello Users</h3>
 
         <!-- <label for="name">Name: </label>
         <input type="text" name="name"><br>

@@ -11,6 +11,11 @@
         font-size: 20px;
         margin-top: 10px;
     }
+
+    span {
+        color: red;
+        font-size: 20px;
+    }
     </style>
 </head>
 
@@ -20,34 +25,30 @@
         <h1>User Sign Up Form</h1>
 
         <label for="">Name: </label>
-        <input type="text" name="name"><br>
-        <span>
-            @error('name')
-                {{$message}}
-            @enderror
-        </span>
+        <input type="text" name="name"><span>@error('name') {{$message}} @enderror </span><br>
 
         <label for="">Email: </label>
-        <input type="email" name="email"><br>
-
+        <input type="email" name="email"><span>@error('email') {{$message}} @enderror </span><br>
+        
         <label for="">Address: </label>
-        <input type="text" name="address"><br>
-
+        <input type="text" name="address"><span>@error('address') {{$message}} @enderror </span><br>
+        
         <label for="">Select any one: </label>
         <label for=""><input type="radio" name="title" value="student">Student</label>
-        <label for=""><input type="radio" name="title" value="teacher">Teacher</label><br>
+        <label for=""><input type="radio" name="title" value="teacher">Teacher</label>
+        <span>@error('title') {{$message}} @enderror </span><br>
 
         <label for="">Profile Picture: </label>
-        <input type="file" name="picture"><br>
-
+        <input type="file" name="picture"><span>@error('picture') {{$message}} @enderror </span><br>
+        
         <label for="">Current School: </label>
-        <input type="text" name="current_school"><br>
+        <input type="text" name="current_school"><span>@error('current_school') {{$message}} @enderror </span><br>
 
         <label for="">Previous School: </label>
-        <input type="text" name="previous_school"><br>
+        <input type="text" name="previous_school"><span>@error('previous_school') {{$message}} @enderror </span><br>
 
         <label for="">Password: </label>
-        <input type="password" name="password"><br>
+        <input type="password" name="password"><span>@error('password') {{$message}} @enderror </span><br>
 
         <button type="submit" name="submit">submit</button>
 

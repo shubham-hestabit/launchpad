@@ -15,9 +15,10 @@ class MainController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'title' => 'required',
+            'picture' => 'required|image',
             'current_school' => 'required',
             'previous_school' => 'required',
-            'password' => 'required',
+            'password' => 'required|password',
         ]);
 
         $user = new Main();
@@ -56,19 +57,18 @@ class MainController extends Controller
 
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:8|max:20',
             'confirm_password' => 'required|same:password',
         ]);
 
         $email = $request->email;
         $pass = $request->password;
-        $c_pass = $request->confirm_password;
         
         if ((Main::where('email', '=', $email)->exists()) and (Main::where('password', '=', $pass)->exists())){
             return redirect('user-data');
         }
         else{
-            return view('user_login')->with('error', '<h1>User Data Not Found in Database.<h1>');
+            return view('user_login')->with('error', 'User Data Not Found in Database.');
         }
     }
 }
