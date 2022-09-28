@@ -19,9 +19,10 @@ class Mains extends Migration
             $table->string('email', 150);
             $table->text('address');
             $table->string('title');
-            $table->string('profile_picture');
+            $table->string('profile_picture')->nullable();
             $table->string('current_school');
             $table->string('previous_school');
+            $table->integer('approval_status')->default(0);
             $table->string('password', 50);
             $table->timestamps();
         });

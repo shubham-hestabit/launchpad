@@ -22,10 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/demo', function () {
-    echo " World";
-});
-
 Route::view('user-form', 'users');
 Route::post('submit-user-form', [MainController::class, 'submitUserData']);
 
@@ -34,9 +30,6 @@ Route::post('submit-student-form', [StudentController::class, 'submitStudentData
 
 Route::view('teacher-form', 'teachers');
 Route::post('submit-teacher-form', [TeacherController::class, 'submitTeacherData']);
-
-Route::view('admin-form', 'admin');
-Route::post('submit-admin-form', [AdminController::class, 'submitAdminData']);
 
 Route::get('submit-assign-form', [AssignController::class, 'assignData']);
 

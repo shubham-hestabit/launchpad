@@ -18,8 +18,7 @@ class CreateAssignsTable extends Migration
             $table->unsignedBigInteger('a_id');
             $table->unsignedBigInteger('stud_id');
             $table->unsignedBigInteger('assigned_teacher_id');
-            $table->foreign('a_id')->references('a_id')->on('admins');
-            $table->foreign('stud_id')->references('s_id')->on('students');
+            $table->foreign('stud_id')->references('s_id')->on('students')->unique('s_id');
             $table->foreign('assigned_teacher_id')->references('t_id')->on('teachers');
             $table->timestamps();
             });

@@ -19,6 +19,7 @@ class StudentController extends Controller
 
         session()->put('s_id', $stud->id);
         echo session()->get('s_id');
+        
         return view('welcome');
     }
 }

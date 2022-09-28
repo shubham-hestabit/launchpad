@@ -8,7 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Main extends Model
 {
     use HasFactory;
+
     public function studentData(){
+
         return $this->hasOne('App\Models\Student');
+
+    }
+
+    public function teacherData(){
+
+        return $this->hasOne('App\Models\Teacher');
+
+    }
+
+    public function assignStudent(){
+
+        return $this->hasOneThrough('App\Models\Assign', 'App\Models\Student', 'id', 's_id');
+    }
+
+    public function assignTeacher(){
+
+        return $this->hasManyThrough('App\Models\Assign', 'App\Models\Teacher', 'id', 't_id');
     }
 }
