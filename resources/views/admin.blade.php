@@ -11,6 +11,11 @@
         font-size: 20px;
         margin-top: 10px;
     }
+
+    span {
+        color: red;
+        font-size: 20px;
+    }
     </style>
 </head>
 
@@ -20,13 +25,13 @@
         <h5>Admin Login</h5>
 
         <label for="name">Name: </label>
-        <input type="text" name="name"><br>
+        <input type="text" name="name"><span>@error('name') {{$message}} @enderror </span><br>
 
         <label for="email">Email: </label>
-        <input type="email" name="email"><br>
+        <input type="email" name="email"><span>@error('email') {{$message}} @enderror </span><br>
 
         <label for="password">Password: </label>
-        <input type="password" name="password"><br>
+        <input type="password" name="password"><span>@error('password') {{$message}} @enderror </span><br>
 
         <button type="submit" name="submit">submit</button>
 

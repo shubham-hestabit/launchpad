@@ -16,7 +16,8 @@
         color: red;
         font-size: 20px;
     }
-    h3{
+
+    h3 {
         color: red;
     }
     </style>
@@ -29,12 +30,13 @@
 
         <label for="">Email: </label>
         <input type="email" name="email"><span>@error('email') {{$message}} @enderror </span><br>
-        
+
         <label for="">Password: </label>
         <input type="password" name="password"><span>@error('password') {{$message}} @enderror</span><br>
 
         <label for="">Confirm Password: </label>
-        <input type="password" name="confirm_password"><span>@error('confirm_password') {{$message}} @enderror</span><br>
+        <input type="password" name="confirm_password"><span>@error('confirm_password') {{$message}}
+            @enderror</span><br>
 
         <button type="submit" name="submit">submit</button>
 

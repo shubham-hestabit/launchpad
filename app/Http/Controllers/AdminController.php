@@ -9,6 +9,12 @@ class AdminController extends Controller
 {
     public function submitAdminData(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|password',
+        ]);
+
         $admin = new Admin;
         date_default_timezone_set('Asia/Kolkata');
 
