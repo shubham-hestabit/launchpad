@@ -14,7 +14,7 @@ class Assigns extends Migration
     public function up()
     {
         Schema::create('assigns', function (Blueprint $table) {
-            $table->id('r_id');
+            $table->id('id');
             $table->unsignedBigInteger('student_id')->unique();
             $table->unsignedBigInteger('assigned_teacher_id');
             $table->foreign('student_id')->references('s_id')->on('students');

@@ -20,19 +20,19 @@ class UserApiController extends Controller
         $user->current_school = $request->current_school;
         $user->previous_school = $request->previous_school;
         $user->password = $request->password;
-        $user->r_id = $request->r_id;
+        $user->r_id = $request->r_id ?? '3';
         $user->save();
 
         if($user->r_id == 2){
             $user->teacherData()->create([
-                "user_id" => $user->id,
+                "main_id" => $user->id,
                 'experience' => $request->experience,
                 'expertise_subjects' => $request->expertise_subjects,
             ]);
         }
         elseif ($user->r_id == 3){
             $user->studentData()->create([
-                "user_id" => $user->id,
+                "main_id" => $user->id,
                 "father_name" => $request->father_name,
                 "mother_name" => $request->mother_name,
             ]);

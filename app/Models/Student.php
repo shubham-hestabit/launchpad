@@ -11,7 +11,9 @@ class Student extends Model
 
     protected $primaryKey = 's_id';
 
-    public function usersData(){
+    protected $fillable = ['user_id', 'father_name', 'mother_name'];
+
+    public function student_data(){
         return $this->belongsTo('App\Models\Main');
     }
 }

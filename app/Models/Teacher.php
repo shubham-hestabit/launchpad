@@ -11,7 +11,9 @@ class Teacher extends Model
 
     protected $primaryKey = 't_id';
 
-    public function usersData(){
+    protected $fillable = ['user_id', 'experience', 'expertise_subjects'];
+
+    public function teacher_data(){
         return $this->belongsTo('App\Models\Main');
     }
 }

@@ -14,7 +14,7 @@ class Mains extends Migration
     public function up()
     {
         Schema::create('mains', function (Blueprint $table) {
-            $table->id('user_id');
+            $table->id();
             $table->string('name', 100);
             $table->string('email', 150);
             $table->text('address');
@@ -22,7 +22,6 @@ class Mains extends Migration
             $table->string('profile_picture')->nullable();
             $table->string('current_school');
             $table->string('previous_school');
-            // $table->unsignedBigInteger('r_id')->unique();
             $table->unsignedBigInteger('r_id')->default(3);
             $table->foreign('r_id')->references('r_id')->on('roles');
             $table->integer('approval_status')->default(0);

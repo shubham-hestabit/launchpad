@@ -15,8 +15,8 @@ class Teachers extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id('t_id');
-            $table->unsignedBigInteger('user_id')->unique();
-            $table->foreign('user_id')->references('user_id')->on('mains');
+            $table->unsignedBigInteger('main_id')->unique();
+            $table->foreign('main_id')->references('id')->on('mains');
             $table->integer('experience');
             $table->string('expertise_subjects');
             $table->timestamps();

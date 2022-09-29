@@ -9,4 +9,14 @@ class Assign extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id', 'student_id', 'assigned_teacher_id'];
+
+    public function s_data(){
+        return $this->belongsTo('App\Models\Student\Student');
+    }
+
+    public function t_data(){
+        return $this->belongsTo('App\Models\Main\Teacher');
+    }
+
 }
