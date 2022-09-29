@@ -13,7 +13,7 @@ class StudentApiController extends Controller
 
         $stud = new Student();
 
-        $stud->main_id = $request['main_id'];
+        $stud->main_id = $request['user_id'];
         $stud->parent_details = $request['parents_details'];
         $stud->save();
 

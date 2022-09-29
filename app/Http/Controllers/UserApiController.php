@@ -25,14 +25,14 @@ class UserApiController extends Controller
 
         if($user->r_id == 2){
             $user->teacherData()->create([
-                "main_id" => $user->id,
+                "user_id" => $user->id,
                 'experience' => $request->experience,
                 'expertise_subjects' => $request->expertise_subjects,
             ]);
         }
         elseif ($user->r_id == 3){
             $user->studentData()->create([
-                "main_id" => $user->id,
+                "user_id" => $user->id,
                 "father_name" => $request->father_name,
                 "mother_name" => $request->mother_name,
             ]);

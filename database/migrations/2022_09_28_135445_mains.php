@@ -14,7 +14,7 @@ class Mains extends Migration
     public function up()
     {
         Schema::create('mains', function (Blueprint $table) {
-            $table->id();
+            $table->id('user_id');
             $table->string('name', 100);
             $table->string('email', 150);
             $table->text('address');

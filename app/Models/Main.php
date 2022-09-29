@@ -9,6 +9,8 @@ class Main extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'user_id';
+
     public function studentData(){
 
         return $this->hasOne('App\Models\Student');

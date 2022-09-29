@@ -13,7 +13,7 @@ class AssignController extends Controller
         date_default_timezone_set('Asia/Kolkata');
         
         // $assign->r_id = $request->r
-        $assign->stud_id = session()->get('s_id');
+        $assign->student_id = session()->get('s_id');
         $assign->assigned_teacher_id = session()->get('t_id');
         $assign->save();
 

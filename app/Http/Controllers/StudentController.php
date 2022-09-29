@@ -13,7 +13,7 @@ class StudentController extends Controller
         $stud = new Student;
         date_default_timezone_set('Asia/Kolkata');
 
-        $stud->main_id = $request['main_id'];
+        $stud->user_id = $request['user_id'];
         $stud->parent_details = $request['parents_details'];
         $stud->save();
 
