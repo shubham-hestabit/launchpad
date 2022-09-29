@@ -16,7 +16,7 @@ class Students extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id('s_id');
             $table->unsignedBigInteger('main_id')->unique();
-            $table->foreign('main_id')->references('id')->on('mains');
+            $table->foreign('main_id')->references('id')->on('mains')->onDelete('cascade');
             $table->string('father_name', 100);
             $table->string('mother_name', 100);
             $table->timestamps();

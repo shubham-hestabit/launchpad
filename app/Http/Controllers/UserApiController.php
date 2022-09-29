@@ -123,16 +123,23 @@ class UserApiController extends Controller
     public function destroy($id)
     {
         $user = Main::with('studentData', 'teacherData')->find($id);
-    
-        if($user->r_id == 2){
-            // echo "Teacher Data Deleted Successfully.\n";
-            $user->delete();
-        }
-        elseif ($user->r_id == 3){
-            // echo "Student Data Deleted Successfully.\n";
-            $user->delete();
-        }
 
-        return response()->json('User Removed Successfully.');
+        try{
+            if(is_null($user)){
+                throw new \Exception("User data not found for Deletion.");
+            }
+            else if($user->r_id == 2){
+                echo "Teacher Data Deleted Successfully.\n";
+                $user->delete();
+            }
+            elseif ($user->r_id == 3){
+                echo "Student Data Deleted Successfully.\n";
+                $user->delete();
+            }
+        }
+        catch(\Exception $e){
+            echo $e->getMessage();
+        }
+        // return response()->json();
     }
 }
