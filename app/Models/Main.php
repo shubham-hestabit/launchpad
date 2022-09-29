@@ -12,13 +12,11 @@ class Main extends Model
     public function studentData(){
 
         return $this->hasOne('App\Models\Student');
-
     }
 
     public function teacherData(){
 
         return $this->hasOne('App\Models\Teacher');
-
     }
 
     public function assignStudent(){
@@ -28,6 +26,6 @@ class Main extends Model
 
     public function assignTeacher(){
 
-        return $this->hasManyThrough('App\Models\Assign', 'App\Models\Teacher', 'id', 't_id');
+        return $this->hasManyThrough('App\Models\Assign', 'App\Models\Teacher', 't_id', 'id');
     }
 }

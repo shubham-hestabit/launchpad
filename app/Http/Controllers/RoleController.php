@@ -7,24 +7,16 @@ use App\Models\Role;
 
 class RoleController extends Controller
 {
-    public function submitAdminData(Request $request)
+    public function userRole(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email',
-        //     'password' => 'required|password',
-        // ]);
 
-        // $admin = new Role;
-        // date_default_timezone_set('Asia/Kolkata');
+        $role = new Role();
+        
+        // $role->id = $request->get('r_id');
 
-        // $admin->a_name = $request['name'];
-        // $admin->a_email = $request['email'];
-        // $admin->a_password = $request['password'];
-        // $admin->main_id = session()->get('s_user_id');
-        // $admin->save();
+        session()->put('r_id', $role->id);
 
-        // session()->put('a_id', $admin->id);
+        echo session()->get('r_id');
 
         // return view('welcome');
     }

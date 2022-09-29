@@ -17,7 +17,8 @@ class Students extends Migration
             $table->id('s_id');
             $table->unsignedBigInteger('main_id')->unique();
             $table->foreign('main_id')->references('id')->on('mains');
-            $table->string('parent_details', 100);
+            $table->string('father_name', 100);
+            $table->string('mother_name', 100);
             $table->timestamps();
         });
     }

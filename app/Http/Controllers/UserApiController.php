@@ -22,6 +22,21 @@ class UserApiController extends Controller
         $user->password = $request->password;
         $user->r_id = $request->r_id;
         $user->save();
+
+        if($user->r_id == 2){
+            $user->teacherData()->create([
+                "main_id" => $user->id,
+                'experience' => $request->experience,
+                'expertise_subjects' => $request->expertise_subjects,
+            ]);
+        }
+        elseif ($user->r_id == 3){
+            $user->studentData()->create([
+                "main_id" => $user->id,
+                "father_name" => $request->father_name,
+                "mother_name" => $request->mother_name,
+            ]);
+        }
         
         return response()->json($user);
     }

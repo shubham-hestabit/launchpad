@@ -30,11 +30,11 @@ Route::put('update/{id}',  [UserApiController::class, 'update']);
 
 Route::delete('delete/{id}',  [UserApiController::class, 'destroy']);
 
+// Route::apiResource("users/read", UserApiController::class);
+
 
 
 // Student Routes
-
-Route::get('student-data-api',  [StudentApiController::class, 'index']);
 
 Route::post('student-api',  [StudentApiController::class, 'create']);
 

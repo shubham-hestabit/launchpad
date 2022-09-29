@@ -27,6 +27,7 @@ class MainController extends Controller
         $user->email = $request->email;
         $user->address = $request->address;
         $user->title = $request->title;
+        // $user->r_id = $request->r_id;
         
         date_default_timezone_set('Asia/Kolkata');
         if($user->title == 'student'){

@@ -17,7 +17,7 @@ class StudentApiController extends Controller
         $stud->parent_details = $request['parents_details'];
         $stud->save();
 
-        session()->put('s_id', $stud->id);
+        // session()->put('s_id', $stud->id);
 
         return response()->json($stud);
     }
@@ -32,7 +32,7 @@ class StudentApiController extends Controller
     public function update(Request $request, $id)
     {
         $stud = Student::find($id);
-        $stud->parent_details = $request['parents_details'];
+        // $stud->parent_details = $request['parents_details'];
         $stud->save();
 
         return response()->json($stud);

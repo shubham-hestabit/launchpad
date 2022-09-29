@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AssignController;
 
 /*
@@ -31,6 +31,7 @@ Route::post('submit-student-form', [StudentController::class, 'submitStudentData
 Route::view('teacher-form', 'teachers');
 Route::post('submit-teacher-form', [TeacherController::class, 'submitTeacherData']);
 
+Route::get('user-role', [RoleController::class, 'userRole']);
 Route::get('submit-assign-form', [AssignController::class, 'assignData']);
 
 Route::view('login-form', 'user_login');

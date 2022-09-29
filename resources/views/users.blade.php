@@ -47,6 +47,9 @@
         <label for="">Previous School: </label>
         <input type="text" name="previous_school"><span>@error('previous_school') {{$message}} @enderror </span><br>
 
+        <label for="">Role:</label>
+        <input type="text" name="role" value="{{session->get('r_id')}}"><br>
+
         <label for="">Password: </label>
         <input type="password" name="password"><span>@error('password') {{$message}} @enderror </span><br>
 
