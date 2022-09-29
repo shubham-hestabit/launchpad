@@ -23,7 +23,7 @@ class StudentResource extends JsonResource
             'Previous School' => $this->previous_school,
             'Father Name' => $this->studentData->father_name, 
             'Mother Name' => $this->studentData->mother_name,
-            'Approval Status' => $this->approval_status
+            'Approval Status' => $this->approval_status,
         ];
     }
 }

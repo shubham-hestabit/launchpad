@@ -26,16 +26,3 @@ class UserResource extends JsonResource
         ];
     }
 }
-
-
-// Column	Type	Comment
-// id	bigint unsigned Auto Increment	
-// name	varchar(100)	
-// email	varchar(150)	
-// address	text	
-// title	varchar(255)	
-// profile_picture	varchar(255) NULL	
-// current_school	varchar(255)	
-// previous_school	varchar(255)	
-// r_id	bigint unsigned [3]	
-// approval_status	i

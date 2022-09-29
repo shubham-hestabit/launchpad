@@ -14,6 +14,7 @@ class Teacher extends Model
     protected $fillable = ['user_id', 'experience', 'expertise_subjects'];
 
     public function teacher_data(){
+        
         return $this->belongsTo('App\Models\Main');
     }
 }
