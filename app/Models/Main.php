@@ -29,6 +29,6 @@ class Main extends Authenticatable
 
     public function assignTeacher(){
 
-        return $this->hasManyThrough('App\Models\Assign', 'App\Models\Teacher', 't_id', 'id');
+        return $this->hasOneThrough('App\Models\Assign', 'App\Models\Teacher', 't_id', 'id');
     }
 }

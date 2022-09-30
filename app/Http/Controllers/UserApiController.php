@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Main;
-use App\Http\Resources\UserResource;
 use Laravel\Passport\Token;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
 
@@ -115,7 +115,7 @@ class UserApiController extends Controller
                 $user->address = $request->address ?? $user->address;
                 $user->current_school = $request->current_school ?? $user->current_school;
                 $user->previous_school = $request->previous_school ?? $user->previous_school;
-                $user->password = $request->password ?? $user->password;
+                $user->password = bcrypt($request->password) ?? $user->password;
                 $user->save();
         
                 if($user->r_id == 2){
@@ -146,7 +146,7 @@ class UserApiController extends Controller
     // Deletion Method
     public function destroy($id)
     {
-        $user = Main::with('studentData', 'teacherData')->find($id);
+        $user = Main::with('studentData', 'teacherData')->find(auth()->user()->$id);
 
         try{
             if(is_null($user)){
@@ -158,6 +158,10 @@ class UserApiController extends Controller
             }
             elseif ($user->r_id == 3){
                 echo "Student Data Deleted Successfully.\n";
+                $user->delete();
+            }
+            elseif($user->r_id == 1){
+                echo "Admin Data Deleted Successfully.\n";
                 $user->delete();
             }
         }
