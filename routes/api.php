@@ -22,25 +22,23 @@ Route::middleware('auth:sanctum')->get('/user/passport', function (Request $requ
     return $request->user();
 });
 
-// Passport
-Route::middleware('auth:api')->group(function(){
-    Route::get('getuser', [UserApiController::class, 'auth']);
-});
-
 
 // User Routes
 
 Route::post('register',  [UserApiController::class, 'create']);
 
-Route::post('login',  [UserApiController::class, 'login']); ////
+Route::post('login',  [UserApiController::class, 'login']); 
 
-Route::get('read/{id}',  [UserApiController::class, 'read']);
+// Passport
+Route::middleware('auth:api')->group(function(){
 
-Route::put('update/{id}',  [UserApiController::class, 'update']);
+    Route::get('read/{id}',  [UserApiController::class, 'read']);
 
-Route::delete('delete/{id}',  [UserApiController::class, 'destroy']);
+    Route::put('update/{id}',  [UserApiController::class, 'update']);
 
-// Route::apiResource("user/read", UserApiController::class);
+    Route::delete('delete/{id}',  [UserApiController::class, 'destroy']);
+
+});
 
 Route::put('assign/{id}',  [AdminApiController::class, 'assign']);
 

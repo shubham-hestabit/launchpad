@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-2022_09_28_135445_mains
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

@@ -11,7 +11,7 @@ use App\Http\Resources\TeacherResource;
 
 class UserApiController extends Controller
 {
-
+    // Registeration Method
     public function create(Request $request)
     {
 
@@ -48,11 +48,31 @@ class UserApiController extends Controller
         }
 
         $token = $user->createToken('Token')->accessToken;
-        // return new UserResource($user);
-        return response()->json(['token'=>$token, 'user' => $user]);
+        $user_data =  new UserResource($user);
+        return response()->json(['token'=>$token, 'user' => $user_data]);
         
     }
     
+    //Login Method
+    public function login(Request $request){
+
+        $user = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+       
+        if (auth()->attempt($user)){
+
+            $token = auth()->user()->createToken('Token')->accessToken;
+            return response()->json(['token'=>$token]);
+   
+        }
+        else{            
+            return response()->json(['Error'=>'Unauthorized User']);
+        }
+    }
+    
+    // Reading Method
     public function read($id)
     {
         $user = Main::with('studentData', 'teacherData')->find($id);
@@ -80,6 +100,7 @@ class UserApiController extends Controller
         }
     }
 
+    // Updation Method
     public function update(Request $request, $id)
     {
         $user = Main::with('studentData', 'teacherData')->find($id);
@@ -122,6 +143,7 @@ class UserApiController extends Controller
         }
     }
     
+    // Deletion Method
     public function destroy($id)
     {
         $user = Main::with('studentData', 'teacherData')->find($id);
@@ -143,25 +165,5 @@ class UserApiController extends Controller
             echo $e->getMessage();
         }
         // return response()->json();
-    }
-
-    public function login(Request $request){
-
-        $user = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
-       
-        if (auth()->attempt($user)){
-
-            $token = auth()->user()->createToken('Token')->accessToken;
-            return response()->json(['token'=>$token]);
-
-            
-        }
-        else{
-            
-            return response()->json(['Error'=>'Unauthorized User']);
-    }
     }
 }
