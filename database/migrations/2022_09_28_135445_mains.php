@@ -24,7 +24,7 @@ class Mains extends Migration
             $table->unsignedBigInteger('r_id')->default(3);
             $table->foreign('r_id')->references('r_id')->on('roles');
             $table->integer('approval_status')->default(0);
-            $table->string('password', 50);
+            $table->string('password', 150);
             $table->timestamps();
         });
     }

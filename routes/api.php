@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserApiController;
-use App\Http\Controllers\StudentApiController;
+use App\Http\Controllers\AdminApiController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,22 @@ use App\Http\Controllers\StudentApiController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// Sanctum
+Route::middleware('auth:sanctum')->get('/user/passport', function (Request $request) {
     return $request->user();
 });
+
+// Passport
+Route::middleware('auth:api')->group(function(){
+    Route::get('getuser', [UserApiController::class, 'auth']);
+});
+
 
 // User Routes
 
 Route::post('register',  [UserApiController::class, 'create']);
+
+Route::post('login',  [UserApiController::class, 'login']); ////
 
 Route::get('read/{id}',  [UserApiController::class, 'read']);
 
@@ -30,4 +40,8 @@ Route::put('update/{id}',  [UserApiController::class, 'update']);
 
 Route::delete('delete/{id}',  [UserApiController::class, 'destroy']);
 
-// Route::apiResource("users/read", UserApiController::class);
+// Route::apiResource("user/read", UserApiController::class);
+
+Route::put('assign/{id}',  [AdminApiController::class, 'assign']);
+
+Route::get('reads/{id}',  [AdminApiController::class, 'read']);

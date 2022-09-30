@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Main;
 use App\Http\Resources\UserResource;
+use Laravel\Passport\Token;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
 
@@ -21,8 +22,9 @@ class UserApiController extends Controller
         $user->address = $request->address;
         $user->current_school = $request->current_school;
         $user->previous_school = $request->previous_school;
-        $user->password = $request->password;
-        $user->r_id = $request->r_id ?? '3';
+        $user->password = bcrypt($request->password);
+        $user->r_id = $request->r_id ?? 3;
+        $user->approval_status = 0;
         $user->save();
 
         if($user->r_id == 1){
@@ -45,7 +47,9 @@ class UserApiController extends Controller
             echo "New Student Data Added Successfully.\n";
         }
 
-        return new UserResource($user);
+        $token = $user->createToken('Token')->accessToken;
+        // return new UserResource($user);
+        return response()->json(['token'=>$token, 'user' => $user]);
         
     }
     
@@ -139,5 +143,25 @@ class UserApiController extends Controller
             echo $e->getMessage();
         }
         // return response()->json();
+    }
+
+    public function login(Request $request){
+
+        $user = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+       
+        if (auth()->attempt($user)){
+
+            $token = auth()->user()->createToken('Token')->accessToken;
+            return response()->json(['token'=>$token]);
+
+            
+        }
+        else{
+            
+            return response()->json(['Error'=>'Unauthorized User']);
+    }
     }
 }

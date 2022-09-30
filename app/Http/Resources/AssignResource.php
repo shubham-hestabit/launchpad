@@ -16,8 +16,8 @@ class AssignResource extends JsonResource
     {
         return [
             'Admin ID' => $this->r_id,
-            'Student ID' => $this->studentData->assignStudent->s_id,
-            'Teacher ID' => $this->teacherData->assignTeacher->t_id,
+            'Student ID' => $this->studentData->assignStudent->student_id,
+            'Teacher ID' => $this->teacherData->assignTeacher->assigned_teacher_id,
         ];
     }
 }
