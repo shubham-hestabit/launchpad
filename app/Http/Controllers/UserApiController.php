@@ -160,10 +160,10 @@ class UserApiController extends Controller
                 echo "Student Data Deleted Successfully.\n";
                 $user->delete();
             }
-            elseif($user->r_id == 1){
-                echo "Admin Data Deleted Successfully.\n";
-                $user->delete();
-            }
+            // elseif($user->r_id == 1){
+            //     echo "Admin Data Deleted Successfully.\n";
+            //     $user->delete();
+            // }
         }
         catch(\Exception $e){
             echo $e->getMessage();

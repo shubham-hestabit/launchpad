@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserApiController;
 use App\Http\Controllers\AdminApiController;
-use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +39,8 @@ Route::middleware('auth:api')->group(function(){
 
 });
 
+
+//admin
 Route::put('assign/{id}',  [AdminApiController::class, 'assign']);
 
 Route::get('reads/{id}',  [AdminApiController::class, 'read']);
