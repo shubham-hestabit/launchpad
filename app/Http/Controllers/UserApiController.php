@@ -8,7 +8,6 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
 
-
 class UserApiController extends Controller
 {
 
@@ -81,7 +80,6 @@ class UserApiController extends Controller
     {
         $user = Main::with('studentData', 'teacherData')->find($id);
 
-        
         try{
             if(is_null($user)){
                 throw new \Exception("User data not found for Updation.");

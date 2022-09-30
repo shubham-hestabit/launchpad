@@ -15,9 +15,9 @@ class AssignResource extends JsonResource
     public function toArray($request)
     {
         return [
-            // 'Admin ID' => $this->assignTeacher->
-            'Student ID' => $this->teacherData->s_id,
-            'Teacher ID' => $this->teacherData->s_id,
+            'Admin ID' => $this->r_id,
+            'Student ID' => $this->studentData->assignStudent->s_id,
+            'Teacher ID' => $this->teacherData->assignTeacher->t_id,
         ];
     }
 }
