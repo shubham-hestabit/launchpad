@@ -36,18 +36,5 @@ class MainSeeder extends Seeder
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
         ]);
-
-        // DB::table('assigns')->insert([
-        //     'student_id' => '1',
-        //     'assigned_teacher_id' => '3',
-        //     'created_at'=>date('Y-m-d H:i:s'),
-        //     'updated_at'=>date('Y-m-d H:i:s')
-        // ]);
-        // DB::table('assigns')->insert([
-        //     'student_id' => '2',
-        //     'assigned_teacher_id' => '4',
-        //     'created_at'=>date('Y-m-d H:i:s'),
-        //     'updated_at'=>date('Y-m-d H:i:s')
-        // ]);
     }
 }

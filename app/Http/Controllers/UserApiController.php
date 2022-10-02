@@ -71,6 +71,15 @@ class UserApiController extends Controller
             return response()->json(['Error'=>'Unauthorized User']);
         }
     }
+
+    //Logout Method
+    public function logout()
+    {
+        auth()->user()->tokens->revoke();
+        return response()->json([
+            'message' => 'User logged out successfully.'
+        ]);
+    }
     
     // Reading Method
     public function read($id)
@@ -85,14 +94,12 @@ class UserApiController extends Controller
                 return "This ID belongs to Admin.";
             }
             elseif($user->r_id == 2){
-                $teach = Main::with('teacherData')->find($id);
                 echo "You are viewing Teacher Data.\n";
-                return new TeacherResource($teach);
+                return new TeacherResource($user);
             }
             elseif($user->r_id == 3){
-                $stud = Main::with('studentData')->find($id);
                 echo "You are viewing Student Data.\n";
-                return new StudentResource($stud);
+                return new StudentResource($user);
             }
         }
         catch(\Exception $e){
@@ -123,18 +130,16 @@ class UserApiController extends Controller
                         'experience' => $request->experience ?? $user->experience,
                         'expertise_subjects' => $request->expertise_subjects ?? $user->expertise_subjects,
                     ]);
-                    $teach = Main::with('teacherData')->find($id);
                     echo "Teacher Data Updated Successfully.\n";
-                    return new TeacherResource($teach); 
+                    return new TeacherResource($user); 
                 }
                 elseif ($user->r_id == 3){
                     $user->studentData()->update([
                         "father_name" => $request->father_name ?? $user->father_name,
                         "mother_name" => $request->mother_name ?? $user->mother_name,
                     ]);
-                    $stud = Main::with('studentData')->find($id);
                     echo "Student Data Updated Successfully.\n";
-                    return new StudentResource($stud);
+                    return new StudentResource($user);
                 }
             }
         }
