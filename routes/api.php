@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserApiController;
 use App\Http\Controllers\AdminApiController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,13 @@ Route::middleware('auth:api')->group(function(){
 
 
 //admin
-Route::put('assign/{id}',  [AdminApiController::class, 'assign']);
+Route::put('assign/{id}',  [AdminApiController::class, 'assign'])->middleware('auth:api');
 
 Route::get('reads/{id}',  [AdminApiController::class, 'read']);
+
+
+////////////
+
+Route::get('sendmail', [MailController::class, 'mails']);
+
+Route::get('new', [MailController::class, 'notify']);
