@@ -7,8 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{$messages['title']}}</h1>
-    <h2>{{$messages['body']}}</h2>
     <h3>Thank You</h3>
 </body>
 </html>

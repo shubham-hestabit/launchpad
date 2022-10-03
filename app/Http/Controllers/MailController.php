@@ -38,7 +38,7 @@ class MailController extends Controller
         // ];
 
         Notification::route('notify', $mail)->notify(new TeacherNotification($mail));
-        dd($mail);
-        // return view('notify');
+        // dd($mail);
+        return view('notify');
     }
 }
