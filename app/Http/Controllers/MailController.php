@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\TeacherNotification;
 use App\Models\Main;
 
 
