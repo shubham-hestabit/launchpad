@@ -29,11 +29,10 @@ class AdminApiController extends Controller
                 
                 if ($user->approval_status == 1){
                     $messages = [
-                        $user_email = $user->email,
                         'title' => 'Congratulations!',
                         'body' => 'You Profile is Approved by Admin.',
                     ];
-                
+                    $user_email = $user->email;
                     Mail::to($user_email)->send(new SendMail ($messages));
                     echo "Profile Approval mail sent successfully to the User.<br><br><br>";
                 } 

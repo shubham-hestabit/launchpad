@@ -16,8 +16,7 @@ class Mains extends Migration
         Schema::create('mains', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('email', 150);
-            // $table->string('email', 150)->unique();
+            $table->string('email', 150)->unique();
             $table->text('address');
             $table->string('profile_picture')->nullable();
             $table->string('current_school');
