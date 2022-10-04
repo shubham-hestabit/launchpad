@@ -29,7 +29,7 @@ class TeacherNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -41,9 +41,9 @@ class TeacherNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
+                    ->line('Hello Teacher')
                     // ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('A new Student is assigned to you.');
     }
 
     /**
@@ -55,7 +55,7 @@ class TeacherNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'notification' => 'New Student Assigned to You.',
         ];
     }
 }

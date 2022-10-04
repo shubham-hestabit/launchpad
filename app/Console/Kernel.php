@@ -4,6 +4,9 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Models\Main;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +18,21 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $count = Main::where('approval_status', '=', 0)->count();
+
+            $admins = Main::where('r_id','=', 1)->get();
+
+            $messages = [
+                'title' => 'Approval Pending...',
+                'body' => 'Please Approved remaining Profiles.',
+                'count' => 'Unapproved Profile: '.$count,
+            ];
+            foreach ($admins as $admin) {
+                $email = $admin->email;
+                Mail::to($email)->send(new SendMail ($messages));
+            }
+        })->daily();
     }
 
     /**

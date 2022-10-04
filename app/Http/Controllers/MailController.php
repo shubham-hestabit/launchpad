@@ -27,18 +27,4 @@ class MailController extends Controller
 
         return "Email sent successfully.";
     }
-
-    public function notify()
-    {
-        $mail = 'A new Student is assigned to you';
-
-        // $note = [
-        //     'title' => 'New Student',
-        //     'body' => 'A new Student is assigned to you.',
-        // ];
-
-        Notification::route('notify', $mail)->notify(new TeacherNotification($mail));
-        // dd($mail);
-        return view('notify');
-    }
 }

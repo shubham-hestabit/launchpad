@@ -24,12 +24,12 @@ Route::middleware('auth:sanctum')->get('/user/passport', function (Request $requ
 
 
 // User Routes
-
 Route::post('register',  [UserApiController::class, 'create']);
 
 Route::post('login',  [UserApiController::class, 'login']); 
 
-// Passport
+
+// Passport token routes
 Route::middleware('auth:api')->group(function(){
 
     Route::get('read/{id}',  [UserApiController::class, 'read']);
@@ -38,17 +38,17 @@ Route::middleware('auth:api')->group(function(){
 
     Route::delete('delete/{id}',  [UserApiController::class, 'destroy']);
 
+    Route::get('/logout', [UserApiController::class, 'logout']);
 });
 
 
-//admin
-Route::put('assign/{id}',  [AdminApiController::class, 'assign'])->middleware('auth:api');
+//assign table related routes
+Route::put('assign/{main_id}',  [AdminApiController::class, 'assign'])->middleware('auth:api');
 
-Route::get('reads/{id}',  [AdminApiController::class, 'read']);
+Route::get('reads',  [AdminApiController::class, 'read'])->middleware('auth:api');
 
 
-////////////
-
+/////////// test routes--------
 Route::get('sendmail', [MailController::class, 'mails']);
 
-Route::get('new', [MailController::class, 'notify']);
+Route::get('new/{id}', [MailController::class, 'notify']);

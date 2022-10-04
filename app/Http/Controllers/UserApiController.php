@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Main;
-use Laravel\Passport\Token;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\StudentResource;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\TeacherResource;
 
 class UserApiController extends Controller
@@ -78,7 +76,7 @@ class UserApiController extends Controller
     //Logout Method
     public function logout()
     {
-        auth()->user()->tokens->revoke();
+        auth()->user()->token()->revoke();
         return response()->json([
             'message' => 'User logged out successfully.'
         ]);

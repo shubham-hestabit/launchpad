@@ -3,66 +3,61 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assign;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Main;
-use App\Mail\SendMail;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
+use App\Notifications\TeacherNotification;
 
 class AdminApiController extends Controller
 {
 
     public function assign(Request $request, $id){
-
-        // $id = 3;
+        
         $user = Main::with('studentData', 'teacherData', 'assignStudent', 'assignTeacher')->find($id);
-
+        
         try{
             if(is_null($user)){
                 throw new \Exception("Data not found for Updation.");
             }
             
-            $user->approval_status = $request->approval_status ?? 0;
-            $user->save();
-
-            // if ($user->approval_status == 1){
-            //     $messages = [
-            //         'title' => 'Congratulations!',
-            //         'body' => 'You Profile is Approved by Admin.',
-            //     ];
-            //     $user_email = $user->email;
-            //     Mail::to($user_email)->send(new SendMail ($messages));
-            //     return "Profile Approval mail sent successfully.";
-            // } 
-
             if(auth()->user()->r_id == 1){
+            
+                $user->approval_status = $request->approval_status ?? 0;
+                $user->save();
+                
+                if ($user->approval_status == 1){
+                    $messages = [
+                        $user_email = $user->email,
+                        'title' => 'Congratulations!',
+                        'body' => 'You Profile is Approved by Admin.',
+                    ];
+                
+                    Mail::to($user_email)->send(new SendMail ($messages));
+                    echo "Profile Approval mail sent successfully to the User.<br><br><br>";
+                } 
                     
+                date_default_timezone_set('Asia/Kolkata');
                 $user->assignStudent()->insert([
                 'student_id' => $request->student_id ?? 0,
                 'assigned_teacher_id' => $request->assigned_teacher_id ?? 0,
-                "created_at" => now(),
-                "updated_at" => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
                 ]);
 
-                $assign = Assign::find($id);
+                $td = $request->assigned_teacher_id;
 
-                $student = $assign->student_id;
-                $teacher = $assign->assigned_teacher_id;
+                $teacher = Teacher::find($td);
+                $teacher_main = $teacher->main_id;
                 
-                // return response()->json([$student, $teacher]); 
-                if ($student != 0 and $teacher != 0){
+                $user_teacher = Main::find($teacher_main);
+                $t_email = $user_teacher->email;
+                
+                $user_teacher->notify(new TeacherNotification($t_email));
 
-                    $messages = [
-                        'title' => 'New Student',
-                        'body' => 'A new Student is assigned to you.',
-                    ];
-
-                    $teacher_email = $user->email;
-
-                    Mail::to($teacher_email)->send(new SendMail ($messages));
-
-                    return "Profile Approval mail sent successfully.";
-                }
+                return "A new Notification sent successfully to the Teacher.";
+            
             }
         }
         catch(\Exception $e){
@@ -70,24 +65,11 @@ class AdminApiController extends Controller
         }
     }
 
-    public function read($id)
+    public function read()
     {
-        $assign = Assign::find($id);
+        $assign = Assign::get();
 
-        $student = $assign->student_id;
-        $teacher = $assign->assigned_teacher_id;
-
-        return response()->json([$student, $teacher]); 
+        return response()->json($assign); 
     }
 
-    public function mails()
-    {
-        $messages = [
-            'title' => 'Congratulations!',
-            'body' => 'You Profile is Approved by Admin.',
-        ];
-
-        Mail::to('shubhamsaini.hestabit@gmail.com')->send(new SendMail ($messages));
-        return "Email sent successfully.";
-    }
 }
