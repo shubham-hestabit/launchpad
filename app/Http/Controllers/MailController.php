@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 use App\Models\Main;
 
-
 class MailController extends Controller
 {
     public function mails()
