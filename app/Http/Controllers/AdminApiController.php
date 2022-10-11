@@ -34,15 +34,13 @@ class AdminApiController extends Controller
                     ];
                     $user_email = $user->email;
                     Mail::to($user_email)->send(new SendMail ($messages));
-                    echo "Profile Approval mail sent successfully to the User.<br><br><br>";
                 } 
                     
-                date_default_timezone_set('Asia/Kolkata');
                 $user->assignStudent()->insert([
-                'student_id' => $request->student_id ?? 0,
-                'assigned_teacher_id' => $request->assigned_teacher_id ?? 0,
-                'created_at' => now(),
-                'updated_at' => now(),
+                    'student_id' => $request->student_id ?? 0,
+                    'assigned_teacher_id' => $request->assigned_teacher_id ?? 0,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
 
                 $td = $request->assigned_teacher_id;
@@ -60,7 +58,7 @@ class AdminApiController extends Controller
             }
         }
         catch(\Exception $e){
-            echo $e->getMessage();
+            return response()->json(["Error" => $e->getMessage()]);
         }
     }
 

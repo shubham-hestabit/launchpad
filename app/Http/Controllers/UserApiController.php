@@ -29,7 +29,6 @@ class UserApiController extends Controller
         if($user->r_id == 1){
             $user->approval_status = 1;
             $user->save();
-            echo "New Admin Added Successfully.\n";
         }
         elseif($user->r_id == 2){
             $user->teacherData()->create([
@@ -37,7 +36,6 @@ class UserApiController extends Controller
                 "experience" => $request->experience,
                 "expertise_subjects" => $request->expertise_subjects,
             ]);
-            echo "New Teacher Data Added Successfully.\n";
         }
         elseif ($user->r_id == 3){
             $user->studentData()->create([
@@ -45,7 +43,6 @@ class UserApiController extends Controller
                 "father_name" => $request->father_name,
                 "mother_name" => $request->mother_name,
             ]);
-            echo "New Student Data Added Successfully.\n";
         }
 
         $token = $user->createToken('Token')->accessToken;
@@ -95,16 +92,14 @@ class UserApiController extends Controller
                 return "This ID belongs to Admin.";
             }
             elseif($user->r_id == 2){
-                echo "You are viewing Teacher Data.\n";
                 return new TeacherResource($user);
             }
             elseif($user->r_id == 3){
-                echo "You are viewing Student Data.\n";
                 return new StudentResource($user);
             }
         }
         catch(\Exception $e){
-            echo $e->getMessage();
+            return response()->json(["Error" => $e->getMessage()]);
         }
     }
 
@@ -131,7 +126,6 @@ class UserApiController extends Controller
                         'experience' => $request->experience ?? $user->experience,
                         'expertise_subjects' => $request->expertise_subjects ?? $user->expertise_subjects,
                     ]);
-                    echo "Teacher Data Updated Successfully.\n";
                     return new TeacherResource($user); 
                 }
                 elseif ($user->r_id == 3){
@@ -139,41 +133,24 @@ class UserApiController extends Controller
                         "father_name" => $request->father_name ?? $user->father_name,
                         "mother_name" => $request->mother_name ?? $user->mother_name,
                     ]);
-                    echo "Student Data Updated Successfully.\n";
                     return new StudentResource($user);
                 }
             }
         }
         catch(\Exception $e){
-            echo $e->getMessage();
+            return response()->json(["Error" => $e->getMessage()]);
         }
     }
     
     // Deletion Method
     public function destroy($id)
     {
-        $user = Main::with('studentData', 'teacherData')->find(auth()->user()->$id);
-
-        try{
-            if(is_null($user)){
-                throw new \Exception("User data not found for Deletion.");
-            }
-            else if($user->r_id == 2){
-                echo "Teacher Data Deleted Successfully.\n";
-                $user->delete();
-            }
-            elseif ($user->r_id == 3){
-                echo "Student Data Deleted Successfully.\n";
-                $user->delete();
-            }
-            // elseif($user->r_id == 1){
-            //     echo "Admin Data Deleted Successfully.\n";
-            //     $user->delete();
-            // }
+        if (auth()->user()->r_id == 1){
+            $user = Main::find($id);
+            $user->delete();
+            return response()->json(['message' => 'User deleted successfully.']);    
+        }else{
+            return response()->json(['message' => 'Unauthorized User']);
         }
-        catch(\Exception $e){
-            echo $e->getMessage();
-        }
-        // return response()->json();
     }
 }

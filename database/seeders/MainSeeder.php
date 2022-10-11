@@ -14,8 +14,6 @@ class MainSeeder extends Seeder
      */
     public function run()
     {
-        date_default_timezone_set('Asia/Kolkata');
-
         DB::table('roles')->insert([
             'r_id'=>'1',
             'role' => 'Admin',
