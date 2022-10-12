@@ -153,6 +153,18 @@ class UserApiController extends Controller
     */ 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'regex:/^[a-zA-ZÑñ\s]+$/',
+            'email' => 'email',
+            'address' => 'string',
+            'current_school' => 'string',
+            'previous_school' => 'string',
+            'password' => 'string',
+            'experience' => 'numeric',
+            'expertise_subjects' => 'string',
+            'father_name' => 'string',
+            'mother_name' => 'string',
+        ]);
 
         $user = Main::with('studentData', 'teacherData')->find($id);
 
