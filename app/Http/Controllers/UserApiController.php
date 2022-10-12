@@ -19,12 +19,11 @@ class UserApiController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'picture' => 'required|image',
+            'address' => 'required',
+            'profile_picture' => 'image',
             'current_school' => 'required',
             'previous_school' => 'required',
             'password' => 'required|min:8|max:100',
-            'experience' => 'required',
-            'expertise_subjects' => 'required',
         ]);
 
         try {
@@ -37,7 +36,7 @@ class UserApiController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->address = $request->address;
-            $user->profile_picture = $request->file('picture')->store('user-images', 'UserImage') ?? '';
+            $user->profile_picture = $request->file('picture')->storeAs('user-images', 'UserImage') ?? '';
             $user->current_school = $request->current_school;
             $user->previous_school = $request->previous_school;
             $user->password = bcrypt($request->password);
@@ -50,6 +49,10 @@ class UserApiController extends Controller
                 $user->save();
             }
             elseif($user->r_id == 2){
+                $request->validate([
+                    "experience" => 'required',
+                    "expertise_subjects" => 'required',
+                ]);
                 $user->teacherData()->create([
                     "main_id" => $user->id,
                     "experience" => $request->experience,
@@ -57,6 +60,10 @@ class UserApiController extends Controller
                 ]);
             }
             elseif ($user->r_id == 3){
+                $request->validate([
+                    "father_name" => 'required',
+                    "mother_name" => 'required',
+                ]);
                 $user->studentData()->create([
                     "main_id" => $user->id,
                     "father_name" => $request->father_name,
@@ -146,6 +153,7 @@ class UserApiController extends Controller
     */ 
     public function update(Request $request, $id)
     {
+
         $user = Main::with('studentData', 'teacherData')->find($id);
 
         try{
