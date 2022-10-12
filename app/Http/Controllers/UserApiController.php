@@ -20,7 +20,7 @@ class UserApiController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'address' => 'required',
-            'profile_picture' => 'image',
+            'picture' => 'image',
             'current_school' => 'required',
             'previous_school' => 'required',
             'password' => 'required|min:8|max:100',
