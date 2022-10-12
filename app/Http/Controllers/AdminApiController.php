@@ -12,10 +12,19 @@ use App\Notifications\TeacherNotification;
 
 class AdminApiController extends Controller
 {
-
+    /**
+     * We create assign method for approve the user ID.
+     * To assign the student to the teacher.
+     */
     public function assign(Request $request, $id){
+
+        $request->validate([
+            'student_id' => 'required',
+            'assigned_teacher_id' => 'required',
+            'approval_status' => 'required',
+        ]);
         
-        $user = Main::with('studentData', 'teacherData', 'assignStudent', 'assignTeacher')->find($id);
+        $user = Main::with('studentData', 'teacherData')->find($id);
         
         try{
             if(is_null($user)){
@@ -61,7 +70,10 @@ class AdminApiController extends Controller
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
-
+    
+    /**
+     * Create this method for checking the assigning status of students and teachers.
+    */
     public function read()
     {
         $assign = Assign::get();

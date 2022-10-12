@@ -10,67 +10,101 @@ use App\Http\Resources\TeacherResource;
 
 class UserApiController extends Controller
 {
-    // Registeration Method
+    /** 
+     * This is a User Registeration method.
+    */ 
     public function create(Request $request)
     {
 
-        $user = new Main();
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'picture' => 'required|image',
+            'current_school' => 'required',
+            'previous_school' => 'required',
+            'password' => 'required|min:8|max:100',
+            'experience' => 'required',
+            'expertise_subjects' => 'required',
+        ]);
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->address = $request->address;
-        $user->current_school = $request->current_school;
-        $user->previous_school = $request->previous_school;
-        $user->password = bcrypt($request->password);
-        $user->r_id = $request->r_id ?? 3;
-        $user->approval_status = 0;
-        $user->save();
+        try {
+            if ($request->all() == null){
+                throw new \Exception('You must specify all requests');
+            }
 
-        if($user->r_id == 1){
-            $user->approval_status = 1;
+            $user = new Main();
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->address = $request->address;
+            $user->profile_picture = $request->file('picture')->store('user-images', 'UserImage') ?? '';
+            $user->current_school = $request->current_school;
+            $user->previous_school = $request->previous_school;
+            $user->password = bcrypt($request->password);
+            $user->r_id = $request->r_id ?? 3;
+            $user->approval_status = 0;
             $user->save();
-        }
-        elseif($user->r_id == 2){
-            $user->teacherData()->create([
-                "main_id" => $user->id,
-                "experience" => $request->experience,
-                "expertise_subjects" => $request->expertise_subjects,
-            ]);
-        }
-        elseif ($user->r_id == 3){
-            $user->studentData()->create([
-                "main_id" => $user->id,
-                "father_name" => $request->father_name,
-                "mother_name" => $request->mother_name,
-            ]);
-        }
 
-        $token = $user->createToken('Token')->accessToken;
-        $user_data =  new UserResource($user);
-        return response()->json(['token'=>$token, 'user' => $user_data]);
-        
+            if($user->r_id == 1){
+                $user->approval_status = 1;
+                $user->save();
+            }
+            elseif($user->r_id == 2){
+                $user->teacherData()->create([
+                    "main_id" => $user->id,
+                    "experience" => $request->experience,
+                    "expertise_subjects" => $request->expertise_subjects,
+                ]);
+            }
+            elseif ($user->r_id == 3){
+                $user->studentData()->create([
+                    "main_id" => $user->id,
+                    "father_name" => $request->father_name,
+                    "mother_name" => $request->mother_name,
+                ]);
+            }
+            $token = $user->createToken('Token')->accessToken;
+            $user_data =  new UserResource($user);
+            return response()->json(['token'=>$token, 'user' => $user_data]);
+        }
+        catch (\Exception $e) { 
+            return response()->json(['Error' => $e->getMessage()]);
+        }
     }
-    
-    //Login Method
+
+    /** 
+     * This is a User Login method.
+     * This method generate a token for Authentication.
+    */  
     public function login(Request $request){
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8|max:100',
+        ]);
 
         $user = [
             'email' => $request->email,
             'password' => $request->password,
         ];
-       
-        if (auth()->attempt($user)){
 
-            $token = auth()->user()->createToken('Token')->accessToken;
-            return response()->json(['token'=>$token]);
-   
+        try{
+            if (auth()->attempt($user)){
+                $token = auth()->user()->createToken('Token')->accessToken;
+                return response()->json(['token'=>$token]);
+            }
+            else{     
+                throw new \Exception('Unauthorized User');
+            }
         }
-        else{            
-            return response()->json(['Error'=>'Unauthorized User']);
+       catch(\Exception $e){ 
+            return response()->json(['Error' => $e->getMessage()]);
         }
     }
 
-    //Logout Method
+    /** 
+     * This method is for Logout the User.
+    */ 
     public function logout()
     {
         auth()->user()->token()->revoke();
@@ -79,7 +113,10 @@ class UserApiController extends Controller
         ]);
     }
     
-    // Reading Method
+    /** 
+     * We create this method for checking the User details.
+     * Reading Method 
+    */
     public function read($id)
     {
         $user = Main::with('studentData', 'teacherData')->find($id);
@@ -103,7 +140,10 @@ class UserApiController extends Controller
         }
     }
 
-    // Updation Method
+    /** 
+     * We create this method for Update the User details.
+     * Updation Method
+    */ 
     public function update(Request $request, $id)
     {
         $user = Main::with('studentData', 'teacherData')->find($id);
@@ -142,15 +182,19 @@ class UserApiController extends Controller
         }
     }
     
-    // Deletion Method
+    /** 
+     * We create this method for Delete the User details.
+     * Delete Method
+    */ 
     public function destroy($id)
     {
         if (auth()->user()->r_id == 1){
             $user = Main::find($id);
             $user->delete();
-            return response()->json(['message' => 'User deleted successfully.']);    
-        }else{
-            return response()->json(['message' => 'Unauthorized User']);
+            return json_encode(['message' => 'User deleted successfully.']);    
+        }
+        else{
+            return json_encode(['message' => 'You are an Unauthorized User']);
         }
     }
 }
