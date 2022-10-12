@@ -36,7 +36,7 @@ class UserApiController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->address = $request->address;
-            $user->profile_picture = $request->file('picture')->storeAs('user-images', 'UserImage') ?? '';
+            $user->profile_picture = $request->file('picture')->store('user-images') ?? '';
             $user->current_school = $request->current_school;
             $user->previous_school = $request->previous_school;
             $user->password = bcrypt($request->password);
