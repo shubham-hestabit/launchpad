@@ -191,6 +191,7 @@ class UserApiController extends Controller
         if (auth()->user()->r_id == 1){
             $user = Main::find($id);
             $user->delete();
+
             return json_encode(['message' => 'User deleted successfully.']);    
         }
         else{
