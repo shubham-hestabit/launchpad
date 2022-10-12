@@ -26,57 +26,48 @@ class UserApiController extends Controller
             'password' => 'required|min:8|max:100',
         ]);
 
-        try {
-            if ($request->all() == null){
-                throw new \Exception('You must specify all requests');
-            }
+        $user = new Main();
 
-            $user = new Main();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->profile_picture = $request->file('picture')->store('user-images') ?? '';
+        $user->current_school = $request->current_school;
+        $user->previous_school = $request->previous_school;
+        $user->password = bcrypt($request->password);
+        $user->r_id = $request->r_id ?? 3;
+        $user->approval_status = 0;
+        $user->save();
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->address = $request->address;
-            $user->profile_picture = $request->file('picture')->store('user-images') ?? '';
-            $user->current_school = $request->current_school;
-            $user->previous_school = $request->previous_school;
-            $user->password = bcrypt($request->password);
-            $user->r_id = $request->r_id ?? 3;
-            $user->approval_status = 0;
+        if($user->r_id == 1){
+            $user->approval_status = 1;
             $user->save();
-
-            if($user->r_id == 1){
-                $user->approval_status = 1;
-                $user->save();
-            }
-            elseif($user->r_id == 2){
-                $request->validate([
-                    "experience" => 'required',
-                    "expertise_subjects" => 'required',
-                ]);
-                $user->teacherData()->create([
-                    "main_id" => $user->id,
-                    "experience" => $request->experience,
-                    "expertise_subjects" => $request->expertise_subjects,
-                ]);
-            }
-            elseif ($user->r_id == 3){
-                $request->validate([
-                    "father_name" => 'required',
-                    "mother_name" => 'required',
-                ]);
-                $user->studentData()->create([
-                    "main_id" => $user->id,
-                    "father_name" => $request->father_name,
-                    "mother_name" => $request->mother_name,
-                ]);
-            }
-            $token = $user->createToken('Token')->accessToken;
-            $user_data =  new UserResource($user);
-            return response()->json(['token'=>$token, 'user' => $user_data]);
         }
-        catch (\Exception $e) { 
-            return response()->json(['Error' => $e->getMessage()]);
+        elseif($user->r_id == 2){
+            $request->validate([
+                "experience" => 'required',
+                "expertise_subjects" => 'required',
+            ]);
+            $user->teacherData()->create([
+                "main_id" => $user->id,
+                "experience" => $request->experience,
+                "expertise_subjects" => $request->expertise_subjects,
+            ]);
         }
+        elseif ($user->r_id == 3){
+            $request->validate([
+                "father_name" => 'required',
+                "mother_name" => 'required',
+            ]);
+            $user->studentData()->create([
+                "main_id" => $user->id,
+                "father_name" => $request->father_name,
+                "mother_name" => $request->mother_name,
+            ]);
+        }
+        $token = $user->createToken('Token')->accessToken;
+        $user_data =  new UserResource($user);
+        return response()->json(['token'=>$token, 'user' => $user_data]);
     }
 
     /** 
